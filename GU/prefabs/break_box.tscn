@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6uto723x2he8"]
+
+[ext_resource type="Texture2D" uid="uid://cr8nga502n0ur" path="res://Seasonal Tilesets/Seasonal Tilesets/5 - Misc. universal tiles/Blocks (16 x 16).png" id="1_7bf80"]
+[ext_resource type="Script" path="res://scripts/break_box.gd" id="1_hkiep"]
+[ext_resource type="Shader" path="res://shaders/hit_flash.gdshader" id="2_iu4xa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3wu72"]
+shader = ExtResource("2_iu4xa")
+shader_parameter/active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0g58"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_ojk1c"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texture:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("texture:material:shader_parameter/active")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_4nt8t"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texture:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.737255, 0.137255, 0.211765, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iinwj"]
+_data = {
+"RESET": SubResource("Animation_ojk1c"),
+"hit": SubResource("Animation_4nt8t")
+}
+
+[node name="break_box" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_hkiep")
+pieces = PackedStringArray("res://Seasonal Tilesets/Seasonal Tilesets/5 - Misc. universal tiles/brick-piece-01.png", "res://Seasonal Tilesets/Seasonal Tilesets/5 - Misc. universal tiles/brick-piece-02.png", "res://Seasonal Tilesets/Seasonal Tilesets/5 - Misc. universal tiles/brick-piece-03.png", "res://Seasonal Tilesets/Seasonal Tilesets/5 - Misc. universal tiles/brick-piece-04.png")
+
+[node name="texture" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3wu72")
+texture = ExtResource("1_7bf80")
+region_enabled = true
+region_rect = Rect2(16, 16, 16, 16)
+
+[node name="collision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_u0g58")
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iinwj")
+}
+
+[node name="spawn_coin" type="Marker2D" parent="."]
+position = Vector2(0, -8)
