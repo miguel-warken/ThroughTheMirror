@@ -11,6 +11,9 @@ extends Node2D
 func _ready():
 	#Iniciar com fundo preto
 	bg.color = Color(0,0,0)
+	invert_bg()
+	invert_tiles()
+
 
 
 
@@ -29,23 +32,12 @@ func invert_bg() -> void:
 	
 	if(bg_curr_color == black):
 		bg.color = white
-		#w_tilemap.visible = true
-		#b_tilemap.visible = false
-		#w_tilemap.tile_set.set_physics_layer_collision_layer(1,1)
-		w_tilemap.tile_set.set_physics_layer_collision_mask(1,1)
-		#b_tilemap.tile_set.set_physics_layer_collision_layer(2, 3)
-		b_tilemap.tile_set.set_physics_layer_collision_mask(1,0)
+		b_tilemap.tile_set.set_physics_layer_collision_layer(0,0)
+		w_tilemap.tile_set.set_physics_layer_collision_layer(0,3)
 	else:
 		bg.color = black 
-		#w_tilemap.visible = false
-		#b_tilemap.visible = true  
-		#w_tilemap.tile_set.set_physics_layer_collision_layer(2, 3)
-		#b_tilemap.tile_set.set_physics_layer_collision_layer(3, 2)
-		#w_tilemap.tile_set.set_physics_layer_collision_mask(1,2)
-		#b_tilemap.tile_set.set_physics_layer_collision_mask(2,1)
-		b_tilemap.tile_set.set_physics_layer_collision_mask(1,1)
-		w_tilemap.tile_set.set_physics_layer_collision_mask(1,0)
-		
+		b_tilemap.tile_set.set_physics_layer_collision_layer(0,2)
+		w_tilemap.tile_set.set_physics_layer_collision_layer(0,0)
 
 
 
