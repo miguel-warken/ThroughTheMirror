@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bne1s3a5vca7s"]
+[gd_scene load_steps=26 format=3 uid="uid://bne1s3a5vca7s"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_8w7iv"]
 [ext_resource type="Texture2D" uid="uid://bq8nuu270li5f" path="res://tiles/tilemaps/tilemap_bblack.png" id="2_2vgbj"]
 [ext_resource type="Texture2D" uid="uid://cpqgws7uwyfw3" path="res://tiles/tilemaps/tilemap_bwhite.png" id="3_fhjy1"]
+[ext_resource type="Script" path="res://scenes/Player.gd" id="4_4s2l4"]
+[ext_resource type="Texture2D" uid="uid://dw3julrm2q3gm" path="res://sprites/4 - Tommy/Picking_Up_Object (32 x 32).png" id="5_2ajw5"]
+[ext_resource type="Texture2D" uid="uid://bhkkx1tjclwr0" path="res://sprites/4 - Tommy/Idle_Poses (32 x 32).png" id="5_042dt"]
+[ext_resource type="Texture2D" uid="uid://13p1x8vthuxm" path="res://sprites/4 - Tommy/Running (32 x 32).png" id="6_lfkjl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b5qyf"]
 resource_name = "blacktilemap"
@@ -845,6 +849,115 @@ terrain_set_0/terrain_0/name = "w_dirt"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_xwrv2")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouvmb"]
+atlas = ExtResource("5_2ajw5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmmh5"]
+atlas = ExtResource("5_042dt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysspp"]
+atlas = ExtResource("5_042dt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohpkg"]
+atlas = ExtResource("5_042dt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl3g0"]
+atlas = ExtResource("5_042dt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tn44"]
+atlas = ExtResource("6_lfkjl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sq6bo"]
+atlas = ExtResource("6_lfkjl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67ef7"]
+atlas = ExtResource("6_lfkjl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8rt2"]
+atlas = ExtResource("6_lfkjl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f81wi"]
+atlas = ExtResource("6_lfkjl")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ifeb"]
+atlas = ExtResource("6_lfkjl")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7af8r"]
+atlas = ExtResource("6_lfkjl")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tu7fo"]
+atlas = ExtResource("6_lfkjl")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vn88h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouvmb")
+}],
+"loop": true,
+"name": &"climb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmmh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysspp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohpkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl3g0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tn44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sq6bo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67ef7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8rt2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f81wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ifeb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7af8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tu7fo")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_8w7iv")
 
@@ -861,6 +974,16 @@ texture_filter = 1
 tile_set = SubResource("TileSet_0h4vr")
 format = 2
 layer_0/tile_data = PackedInt32Array(196612, 1048576, 5, 196613, 1048576, 5, 196614, 1048576, 5, 196615, 1048576, 5)
+
+[node name="Player" type="CharacterBody2D" parent="Level1"]
+script = ExtResource("4_4s2l4")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="Level1/Player"]
+position = Vector2(-110, 33)
+sprite_frames = SubResource("SpriteFrames_vn88h")
+animation = &"climb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/Player"]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

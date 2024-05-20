@@ -7,6 +7,8 @@ extends Node2D
 @onready var w_tilemap: TileMap = $Level1/WhiteTileMap
 @onready var b_tilemap: TileMap = $Level1/BlackTileMap
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#Iniciar com fundo preto
