@@ -11,6 +11,10 @@ extends Node2D
 func _ready():
 	#Iniciar com fundo preto
 	bg.color = Color(0,0,0)
+	invert_bg()
+	invert_tiles()
+
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,6 +22,9 @@ func _process(delta):
 	if(Input.is_action_just_pressed("click")):
 		invert_bg()
 		invert_tiles()
+		
+		
+		
 
 
 func invert_bg() -> void:
@@ -25,8 +32,14 @@ func invert_bg() -> void:
 	
 	if(bg_curr_color == black):
 		bg.color = white
+		b_tilemap.tile_set.set_physics_layer_collision_layer(0,0)
+		w_tilemap.tile_set.set_physics_layer_collision_layer(0,3)
 	else:
-		bg.color = black
+		bg.color = black 
+		b_tilemap.tile_set.set_physics_layer_collision_layer(0,2)
+		w_tilemap.tile_set.set_physics_layer_collision_layer(0,0)
+
+
 
 func invert_tiles() -> void:
 	if(bg.color == white):
