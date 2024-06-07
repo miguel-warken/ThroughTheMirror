@@ -7,6 +7,9 @@ extends Node2D
 @onready var w_tilemap: TileMap = $Level1/WhiteTileMap
 @onready var b_tilemap: TileMap = $Level1/BlackTileMap
 
+@onready var bspike: Area2D = $Level1/bspike
+@onready var wsprite: Area2D = $Level1/wspike
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#Iniciar com fundo preto
@@ -34,10 +37,12 @@ func invert_bg() -> void:
 		bg.color = white
 		b_tilemap.tile_set.set_physics_layer_collision_layer(0,0)
 		w_tilemap.tile_set.set_physics_layer_collision_layer(0,3)
+		bspike.set_collision_mask_value(1, false)
 	else:
 		bg.color = black 
 		b_tilemap.tile_set.set_physics_layer_collision_layer(0,2)
 		w_tilemap.tile_set.set_physics_layer_collision_layer(0,0)
+		bspike.set_collision_mask_value(1, true)
 
 
 

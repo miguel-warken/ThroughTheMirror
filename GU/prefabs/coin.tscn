@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://cuu1ltagaheys"]
 
-[ext_resource type="Texture2D" uid="uid://d3aw8i1inhism" path="res://assents/Mini FX, Items & UI/Mini FX, Items & UI/Common Pick-ups/Coin (16 x 16).png" id="1_3c2fu"]
-[ext_resource type="Script" path="res://scripts/coin.gd" id="1_n4gmx"]
-[ext_resource type="Texture2D" uid="uid://ditfgbinqnlnv" path="res://assents/Mini FX, Items & UI/Mini FX, Items & UI/Effects/Yellow_Sparkle (16 x 16).png" id="2_ng6ck"]
+[ext_resource type="Texture2D" uid="uid://d3aw8i1inhism" path="res://GU/assents/Mini FX, Items & UI/Mini FX, Items & UI/Common Pick-ups/Coin (16 x 16).png" id="1_3c2fu"]
+[ext_resource type="Script" path="res://GU/scripts/coin.gd" id="1_n4gmx"]
+[ext_resource type="Texture2D" uid="uid://ditfgbinqnlnv" path="res://GU/assents/Mini FX, Items & UI/Mini FX, Items & UI/Effects/Yellow_Sparkle (16 x 16).png" id="2_ng6ck"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iofrp"]
 atlas = ExtResource("2_ng6ck")

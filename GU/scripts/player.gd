@@ -100,3 +100,6 @@ func _on_head_collider_body_entered(body):
 			body.animation_player.play("hit")
 			body.create_coin()
 
+
+func die() -> void:
+	print("dano")
