@@ -56,6 +56,14 @@ jump={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="blackTile"
+2d_physics/layer_3="whiteTile"
+2d_physics/layer_6="blackSpike"
+2d_physics/layer_7="whiteSpike"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

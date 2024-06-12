@@ -8,7 +8,7 @@ const JUMP_FORCE = -350.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_jumping := false
 var is_hurted := false
-var player_life := 3
+var player_life := 5
 var knockback_vector := Vector2.ZERO
 var direction
 
@@ -51,13 +51,21 @@ func _physics_process(delta):
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	#if body.is_in_group("enemies"):
 		#queue_free()
-	if player_life < 0:
+	if player_life <= 0:
 		queue_free()
 	else :
 		if $ray_right.is_colliding():
+			print("colisor right")
 			take_damage(Vector2(-200,-200))
 		elif $ray_left.is_colliding():
+			print("colisor left")
 			take_damage(Vector2(200,-200))
+		elif $ray_down.is_colliding():
+			print("colisor down")
+			take_damage(Vector2(0, -200))
+		elif $ray_up.is_colliding():
+			print("colisor up")
+			take_damage(Vector2(0, 200))
 
 func follow_camera(camera):
 	var camera_path = camera.get_path()
