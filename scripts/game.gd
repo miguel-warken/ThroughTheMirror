@@ -10,6 +10,7 @@ extends Node2D
 @onready var b_spikes: TileMap = $Level1/b_spikes
 @onready var w_spikes: TileMap = $Level1/w_spikes
 
+@onready var player: CharacterBody2D = $Level1/player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -62,3 +63,9 @@ func invert_tiles() -> void:
 		w_spikes.visible = false
 
 
+
+
+func _on_level_end_body_entered(body):
+	if(player.keyCollected):
+		print("aaaaeeeeeeeaeaeaeg")
+	pass # Replace with function body.

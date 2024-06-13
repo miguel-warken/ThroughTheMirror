@@ -11,6 +11,7 @@ var is_hurted := false
 var player_life := 5
 var knockback_vector := Vector2.ZERO
 var direction
+@export var keyCollected = false
 
 @onready var animation := $anim as AnimatedSprite2D
 @onready var remote_transform := $remote as RemoteTransform2D
@@ -65,7 +66,7 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 			take_damage(Vector2(0, -200))
 		elif $ray_up.is_colliding():
 			print("colisor up")
-			take_damage(Vector2(0, 200))
+			take_damage(Vector2(0, gravity/2))
 
 func follow_camera(camera):
 	var camera_path = camera.get_path()
@@ -111,3 +112,8 @@ func _on_head_collider_body_entered(body):
 
 func die() -> void:
 	print("dano")
+
+
+func _on_key_body_entered(body):
+	print("chaaaaaave")
+	keyCollected = true
