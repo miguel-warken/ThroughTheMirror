@@ -11,10 +11,13 @@ var is_hurted := false
 var player_life := 5
 var knockback_vector := Vector2.ZERO
 var direction
+var directionY
 @export var keyCollected = false
 
 @onready var animation := $anim as AnimatedSprite2D
 @onready var remote_transform := $remote as RemoteTransform2D
+
+@onready var ladder: Area2D = get_parent().get_node("ladder")
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -31,6 +34,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	direction = Input.get_axis("left", "right")
+	
 	if direction != 0:
 		velocity.x = direction * SPEED
 		animation.scale.x = direction
@@ -53,7 +57,8 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	#if body.is_in_group("enemies"):
 		#queue_free()
 	if player_life <= 0:
-		queue_free()
+		#queue_free()
+		get_tree().reload_current_scene()
 	else :
 		if $ray_right.is_colliding():
 			print("colisor right")
@@ -110,10 +115,19 @@ func _on_head_collider_body_entered(body):
 			body.create_coin()
 
 
-func die() -> void:
-	print("dano")
-
-
 func _on_key_body_entered(body):
-	print("chaaaaaave")
 	keyCollected = true
+
+
+#func _on_ladder_body_entered(body):
+	#print("escada")
+	#directionY = Input.get_axis("up","down")
+	#
+	#if directionY != 0:
+		#velocity.y = directionY * SPEED
+		#animation.scale.y = direction
+	#else:
+		#velocity.y = move_toward(velocity.y, 0, SPEED)
+		#
+	#_set_state()
+	#move_and_slide()

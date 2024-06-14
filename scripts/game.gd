@@ -10,7 +10,13 @@ extends Node2D
 @onready var b_spikes: TileMap = $Level1/b_spikes
 @onready var w_spikes: TileMap = $Level1/w_spikes
 
-@onready var player: CharacterBody2D = $Level1/player
+
+
+
+var player: CharacterBody2D
+var currentScene = null
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,6 +24,7 @@ func _ready():
 	bg.color = Color(0,0,0)
 	invert_bg()
 	invert_tiles()
+	player = $Level1/player
 
 
 
@@ -68,4 +75,11 @@ func invert_tiles() -> void:
 func _on_level_end_body_entered(body):
 	if(player.keyCollected):
 		print("aaaaeeeeeeeaeaeaeg")
-	pass # Replace with function body.
+		call_deferred("goto_scene", "res://scenes/game_over.tscn")
+
+func goto_scene(path: String):
+	$Level1.queue_free()
+	var res := ResourceLoader.load(path)
+	currentScene = res.instantiate()	
+	add_child(currentScene)
+	#_ready()

@@ -61,8 +61,10 @@ jump={
 2d_physics/layer_1="player"
 2d_physics/layer_2="blackTile"
 2d_physics/layer_3="whiteTile"
+2d_physics/layer_5="ladder"
 2d_physics/layer_6="blackSpike"
 2d_physics/layer_7="whiteSpike"
+2d_physics/layer_8="key"
 
 [rendering]
 
