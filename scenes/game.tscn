@@ -1,13 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://bne1s3a5vca7s"]
+[gd_scene load_steps=6 format=3 uid="uid://bne1s3a5vca7s"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_8w7iv"]
 [ext_resource type="PackedScene" uid="uid://1anv0b0de1kh" path="res://scenes/level_1.tscn" id="2_21rfs"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_du5e0"]
-size = Vector2(6, 88)
+[ext_resource type="PackedScene" uid="uid://dr6xd02ctqfvh" path="res://scenes/ladder.tscn" id="3_dlrcq"]
+[ext_resource type="Script" path="res://scenes/Life.gd" id="4_2hoh4"]
+[ext_resource type="Texture2D" uid="uid://cekjjh5wms61w" path="res://assets/ui/coracoes.png" id="4_jt45b"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_8w7iv")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Life" type="Control" parent="ui"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_2hoh4")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="ui/Life"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 17.3
+anchor_right = 0.6
+anchor_bottom = 17.3
+offset_left = -47.0
+offset_top = -739.0
+offset_right = 17.0
+offset_bottom = -668.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_jt45b")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Level1" parent="." instance=ExtResource("2_21rfs")]
 
@@ -23,17 +49,9 @@ layer_0/tile_data = PackedInt32Array(131077, 131072, 65542, 131078, 131072, 6554
 [node name="player" parent="Level1" index="4"]
 collision_mask = 246
 
-[node name="ladder" type="Area2D" parent="Level1"]
-position = Vector2(202, -135)
-collision_layer = 16
+[node name="b_ladders" parent="Level1" instance=ExtResource("3_dlrcq")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/ladder"]
-position = Vector2(14, -5)
-shape = SubResource("RectangleShape2D_du5e0")
-
-[node name="ladders" type="Node2D" parent="Level1"]
-
-[node name="Control" type="Control" parent="."]
+[node name="Background" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -50.0
@@ -43,7 +61,7 @@ offset_bottom = 50.0
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="Background"]
 layout_mode = 0
 offset_right = 800.0
 offset_bottom = 800.0
@@ -53,6 +71,5 @@ metadata/_edit_lock_ = true
 [node name="Timer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="Level1/level_end" to="." method="_on_level_end_body_entered"]
-[connection signal="body_entered" from="Level1/ladder" to="Level1/player" method="_on_ladder_body_entered"]
 
 [editable path="Level1"]

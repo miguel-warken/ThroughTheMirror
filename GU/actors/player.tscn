@@ -136,7 +136,7 @@ size = Vector2(18, 25.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40idc"]
 size = Vector2(14, 5)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["Escalador"]]
 position = Vector2(0, -15)
 collision_mask = 102
 script = ExtResource("1_kh33q")

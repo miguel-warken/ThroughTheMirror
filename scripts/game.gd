@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var bg: ColorRect = $Control/ColorRect
+@onready var bg: ColorRect = $Background/ColorRect
 @onready var black: Color = Color(0,0,0)
 @onready var white: Color = Color(1,1,1)
 
@@ -9,7 +9,6 @@ extends Node2D
 
 @onready var b_spikes: TileMap = $Level1/b_spikes
 @onready var w_spikes: TileMap = $Level1/w_spikes
-
 
 
 

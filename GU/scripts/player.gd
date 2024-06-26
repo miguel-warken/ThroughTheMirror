@@ -5,24 +5,42 @@ const SPEED = 150.0
 const JUMP_FORCE = -350.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var is_jumping := false
-var is_hurted := false
-var player_life := 5
 var knockback_vector := Vector2.ZERO
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction
 var directionY
 @export var keyCollected = false
 
+@export var climbing = false
+
 @onready var animation := $anim as AnimatedSprite2D
 @onready var remote_transform := $remote as RemoteTransform2D
 
-@onready var ladder: Area2D = get_parent().get_node("ladder")
+@onready var heartsTexture = $Level1/ui/Life
+
+signal life_changed(player)
+var player_life := 5
+var hearts_shown = player_life
+var is_jumping := false
+var is_hurted := false
+
+func _ready() -> void:
+	emit_signal("life_changed", player_life)
+
 
 func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
+	if climbing == false:
 		velocity.y += gravity * delta
+	elif climbing == true:
+		velocity.y = 0
+		if Input.is_action_pressed("up"):
+			velocity.y = -SPEED
+		elif Input.is_action_pressed("down"):
+			velocity.y = SPEED
+		if Input.is_action_just_pressed("jump"):
+			climbing = false
+			velocity.y = JUMP_FORCE
+			is_jumping = true
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -54,10 +72,7 @@ func _physics_process(delta):
 
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("enemies"):
-		#queue_free()
 	if player_life <= 0:
-		#queue_free()
 		get_tree().reload_current_scene()
 	else :
 		if $ray_right.is_colliding():
@@ -79,6 +94,8 @@ func follow_camera(camera):
 
 func take_damage(knockback_force := Vector2.ZERO, duration := 0.25):
 	player_life -= 1
+	hearts_shown -=1
+	emit_signal("life_changed", hearts_shown)
 	
 	if knockback_force != Vector2.ZERO:
 		knockback_vector = knockback_force
