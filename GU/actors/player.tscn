@@ -128,17 +128,17 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1pkm"]
-size = Vector2(12, 13)
+size = Vector2(12, 12.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xl4o"]
-size = Vector2(18, 12)
+size = Vector2(18, 25.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40idc"]
 size = Vector2(14, 5)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["Escalador"]]
 position = Vector2(0, -15)
-collision_mask = 86
+collision_mask = 102
 script = ExtResource("1_kh33q")
 
 [node name="anim" type="AnimatedSprite2D" parent="."]
@@ -149,16 +149,14 @@ autoplay = "idle"
 [node name="animator" type="AnimationPlayer" parent="."]
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
+position = Vector2(0, 8.75)
 shape = SubResource("RectangleShape2D_n1pkm")
 
 [node name="hurtbox" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 4
+collision_mask = 100
 
 [node name="collision" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(0, 6)
+position = Vector2(0, 3.125)
 shape = SubResource("RectangleShape2D_0xl4o")
 debug_color = Color(0.992157, 0, 0.25098, 0.419608)
 
@@ -167,12 +165,22 @@ debug_color = Color(0.992157, 0, 0.25098, 0.419608)
 [node name="ray_right" type="RayCast2D" parent="."]
 position = Vector2(6, 9)
 target_position = Vector2(5, 0)
-collision_mask = 4
+collision_mask = 100
 
 [node name="ray_left" type="RayCast2D" parent="."]
 position = Vector2(-6, 9)
 target_position = Vector2(-5, 0)
-collision_mask = 4
+collision_mask = 100
+
+[node name="ray_down" type="RayCast2D" parent="."]
+position = Vector2(0, 15)
+target_position = Vector2(0, 5)
+collision_mask = 100
+
+[node name="ray_up" type="RayCast2D" parent="."]
+position = Vector2(0, 3)
+target_position = Vector2(0, -20)
+collision_mask = 100
 
 [node name="head_collider" type="Area2D" parent="."]
 collision_layer = 0
@@ -184,6 +192,10 @@ shape = SubResource("RectangleShape2D_40idc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+limit_left = -64
+limit_top = -750
+limit_right = 638
+limit_bottom = 64
 
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="head_collider" to="." method="_on_head_collider_body_entered"]
