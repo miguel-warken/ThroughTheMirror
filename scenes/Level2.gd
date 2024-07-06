@@ -1,16 +1,16 @@
-extends Node2D
+extends Node
 
 @onready var bg: ColorRect = $Background/ColorRect
 @onready var black: Color = Color(0,0,0)
 @onready var white: Color = Color(1,1,1)
 
-@onready var w_tilemap: TileMap = $Level1/WhiteTileMap
-@onready var b_tilemap: TileMap = $Level1/BlackTileMap
+@onready var w_tilemap: TileMap = $WhiteTileMap
+@onready var b_tilemap: TileMap = $BlackTileMap
 
-@onready var b_spikes: TileMap = $Level1/b_spikes
-@onready var w_spikes: TileMap = $Level1/w_spikes
+@onready var b_spikes: TileMap = $b_spikes
+@onready var w_spikes: TileMap = $w_spikes
 
-#@onready var b_ladder := $Level1/ladder
+#@onready var b_ladder := $ladder4
 
 
 var player: CharacterBody2D
@@ -24,7 +24,7 @@ func _ready():
 	bg.color = Color(0,0,0)
 	invert_bg()
 	invert_tiles()
-	player = $Level1/player
+	player = $player
 
 
 
@@ -78,10 +78,10 @@ func invert_tiles() -> void:
 func _on_level_end_body_entered(body):
 	if(player.keyCollected):
 		print("aaaaeeeeeeeaeaeaeg")
-		call_deferred("goto_scene", "res://scenes/level_2.tscn")
+		call_deferred("goto_scene", "res://scenes/game_over.tscn")
 
 func goto_scene(path: String):
-	$Level1.queue_free()
+	queue_free()
 	var res := ResourceLoader.load(path)
 	currentScene = res.instantiate()	
 	add_child(currentScene)

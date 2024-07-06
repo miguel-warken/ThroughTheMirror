@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://1anv0b0de1kh"]
+[gd_scene load_steps=18 format=3 uid="uid://1anv0b0de1kh"]
 
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_gffbo"]
 [ext_resource type="Texture2D" uid="uid://cpqgws7uwyfw3" path="res://tiles/tilemaps/tilemap_bwhite.png" id="1_rd2kq"]
 [ext_resource type="Texture2D" uid="uid://bq8nuu270li5f" path="res://tiles/tilemaps/tilemap_bblack.png" id="2_4wojv"]
 [ext_resource type="PackedScene" uid="uid://btuj4bwb7ywv3" path="res://GU/actors/player.tscn" id="3_jhux4"]
 [ext_resource type="Script" path="res://scripts/key.gd" id="4_d44ap"]
 [ext_resource type="Texture2D" uid="uid://b4qrkaoy3rhpq" path="res://sprites/keys/black_key.png" id="5_2nvps"]
+[ext_resource type="PackedScene" uid="uid://cf5m70nyi4qfw" path="res://scenes/level_end.tscn" id="6_7nsx0"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_arm24"]
 tile_data = PackedInt32Array(0, 1048576, 5, 1, 1048576, 5, 2, 1048576, 5, 3, 1048576, 5)
@@ -3059,12 +3061,27 @@ physics_layer_0/collision_layer = 64
 sources/0 = SubResource("TileSetAtlasSource_6tp7b")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ugrap"]
-size = Vector2(11, 17)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0owa"]
-size = Vector2(14, 15)
+size = Vector2(15, 25)
 
 [node name="Level1" type="Node"]
+script = ExtResource("1_gffbo")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -50.0
+offset_top = -750.0
+offset_right = 750.0
+offset_bottom = 50.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 800.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="WhiteTileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -3100,17 +3117,17 @@ format = 2
 layer_0/tile_data = PackedInt32Array(-327665, 131072, 131078, -393200, 131072, 196614, -458736, 131072, 196614, -524272, 131072, 196614, -589808, 131072, 196614, -655344, 131072, 196614, -720880, 131072, 196614, -786416, 131072, 196614, -786418, 131072, 262150, -720882, 131072, 262150, -655346, 131072, 262150, -589810, 131072, 262150, -524274, 131072, 262150, -458738, 131072, 262150, -393202, 131072, 262150, -851953, 131072, 65542, -917485, 131072, 196614, -983021, 131072, 196614, -1048557, 131072, 196614, -1114093, 131072, 196614, -1179629, 131072, 196614, -1245165, 131072, 196614, -1310701, 131072, 196614, -1376237, 131072, 196614, -1441773, 131072, 196614, -1507309, 131072, 196614, -1572845, 131072, 196614, -1638381, 131072, 196614, -1638383, 131072, 262150, -1572848, 131072, 262150, -1376242, 131072, 262150, -1310706, 131072, 262150, -1179633, 131072, 262150, -1048560, 131072, 262150, -983023, 131072, 262150, -917487, 131072, 262150, -851950, 131072, 131078, -1114096, 131072, 131078, -1245169, 131072, 131078, -1507312, 131072, 65542, -1441777, 131072, 65542, -1834990, 131072, 131078)
 
 [node name="player" parent="." instance=ExtResource("3_jhux4")]
-position = Vector2(75, -21)
+position = Vector2(60, -28)
 collision_mask = 230
 
 [node name="key" type="Area2D" parent="."]
-position = Vector2(297, -429)
+position = Vector2(296, -429)
 collision_layer = 128
 script = ExtResource("4_d44ap")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="key"]
-position = Vector2(-0.5, -0.5)
+position = Vector2(-1.5, 0.5)
 shape = SubResource("RectangleShape2D_ugrap")
 
 [node name="Sprite2D" type="Sprite2D" parent="key"]
@@ -3118,13 +3135,10 @@ position = Vector2(-5.96046e-08, 0)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_2nvps")
 
-[node name="level_end" type="Area2D" parent="."]
-position = Vector2(24, -592)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="level_end"]
-position = Vector2(0, 8.5)
-shape = SubResource("RectangleShape2D_c0owa")
+[node name="level2" parent="." instance=ExtResource("6_7nsx0")]
+position = Vector2(24, -584)
 
 [connection signal="body_entered" from="key" to="player" method="_on_key_body_entered"]
 [connection signal="body_entered" from="key" to="key" method="_on_key_body_entered"]
+
+[editable path="level2"]
