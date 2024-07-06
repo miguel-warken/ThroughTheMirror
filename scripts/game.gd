@@ -57,6 +57,7 @@ func invert_bg() -> void:
 		b_spikes.tile_set.set_physics_layer_collision_layer(0,6)
 		w_spikes.tile_set.set_physics_layer_collision_layer(0,0)
 		b_ladder.set_collision_mask_value(1, true)
+		
 
 
 func invert_tiles() -> void:
