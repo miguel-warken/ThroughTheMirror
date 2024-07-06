@@ -5,20 +5,42 @@ const SPEED = 150.0
 const JUMP_FORCE = -350.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var is_jumping := false
-var is_hurted := false
-var player_life := 3
 var knockback_vector := Vector2.ZERO
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction
+var directionY
+@export var keyCollected = false
+
+@export var climbing = false
 
 @onready var animation := $anim as AnimatedSprite2D
 @onready var remote_transform := $remote as RemoteTransform2D
 
+@onready var heartsTexture = $Level1/ui/Life
+
+signal life_changed(player)
+var player_life := 5
+var hearts_shown = player_life
+var is_jumping := false
+var is_hurted := false
+
+func _ready() -> void:
+	emit_signal("life_changed", player_life)
+
+
 func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
+	if climbing == false:
 		velocity.y += gravity * delta
+	elif climbing == true:
+		velocity.y = 0
+		if Input.is_action_pressed("up"):
+			velocity.y = -SPEED
+		elif Input.is_action_pressed("down"):
+			velocity.y = SPEED
+		if Input.is_action_just_pressed("jump"):
+			climbing = false
+			velocity.y = JUMP_FORCE
+			is_jumping = true
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -30,6 +52,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	direction = Input.get_axis("left", "right")
+	
 	if direction != 0:
 		velocity.x = direction * SPEED
 		animation.scale.x = direction
@@ -49,15 +72,21 @@ func _physics_process(delta):
 
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	#if body.is_in_group("enemies"):
-		#queue_free()
-	if player_life < 0:
-		queue_free()
+	if player_life <= 0:
+		get_tree().reload_current_scene()
 	else :
 		if $ray_right.is_colliding():
+			print("colisor right")
 			take_damage(Vector2(-200,-200))
 		elif $ray_left.is_colliding():
+			print("colisor left")
 			take_damage(Vector2(200,-200))
+		elif $ray_down.is_colliding():
+			print("colisor down")
+			take_damage(Vector2(0, -200))
+		elif $ray_up.is_colliding():
+			print("colisor up")
+			take_damage(Vector2(0, gravity/2))
 
 func follow_camera(camera):
 	var camera_path = camera.get_path()
@@ -65,6 +94,8 @@ func follow_camera(camera):
 
 func take_damage(knockback_force := Vector2.ZERO, duration := 0.25):
 	player_life -= 1
+	hearts_shown -=1
+	emit_signal("life_changed", hearts_shown)
 	
 	if knockback_force != Vector2.ZERO:
 		knockback_vector = knockback_force
@@ -101,5 +132,5 @@ func _on_head_collider_body_entered(body):
 			body.create_coin()
 
 
-func die() -> void:
-	print("dano")
+func _on_key_body_entered(body):
+	keyCollected = true
