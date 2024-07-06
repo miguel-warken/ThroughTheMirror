@@ -27,10 +27,9 @@ layer_0/tile_data = PackedInt32Array(131081, 131072, 65542, 131082, 131072, 6554
 [node name="player" parent="Level2" index="4"]
 position = Vector2(-38, -40)
 
-[node name="ui" type="CanvasLayer" parent="."]
-visible = false
+[node name="ui" type="CanvasLayer" parent="Level2"]
 
-[node name="Life" type="Control" parent="ui"]
+[node name="Life" type="Control" parent="Level2/ui"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -38,7 +37,7 @@ offset_bottom = 40.0
 script = ExtResource("4_2hoh4")
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect" type="TextureRect" parent="ui/Life"]
+[node name="TextureRect" type="TextureRect" parent="Level2/ui/Life"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 2.825

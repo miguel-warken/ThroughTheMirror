@@ -16,16 +16,24 @@ var directionY
 @onready var animation := $anim as AnimatedSprite2D
 @onready var remote_transform := $remote as RemoteTransform2D
 
-@onready var heartsTexture = $Level1/ui/Life
+@onready var heartsTexture = $Level2/ui/Life
 
-signal life_changed(player)
+signal life_changed(player_heart)
 var player_life := 5
 var hearts_shown = player_life
 var is_jumping := false
 var is_hurted := false
 
 func _ready() -> void:
-	emit_signal("life_changed", player_life)
+	var ui_life = get_parent().get_node(heartsTexture)
+	if ui_life:
+		ui_life.connect("life_changed", Callable(self, "_on_player_life_changed"))
+		emit_signal("life_changed", player_life)
+		print("Funciona")
+	else:
+		print("Erro: O nó 'ui/Life' não foi encontrado.")
+	#connect("life_changed", get_parent().get_node("ui/Life"),"on_player_life_changed")
+	#emit_signal("life_changed", player_life)
 
 
 func _physics_process(delta):
