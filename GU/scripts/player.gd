@@ -11,6 +11,8 @@ var direction
 var directionY
 @export var keyCollected = false
 
+@onready var ui_life := $Life2/Label
+
 @export var climbing = false
 
 @onready var animation := $anim as AnimatedSprite2D
@@ -19,14 +21,20 @@ var directionY
 @onready var heartsTexture = $Level1/ui/Life
 
 signal life_changed(player)
+
 var player_life := 5
 var hearts_shown = player_life
 var is_jumping := false
 var is_hurted := false
 
 func _ready() -> void:
+	#emit_signal("life_changed", player_life)
 	emit_signal("life_changed", player_life)
+	#connect("life_changed", self.get_parent(), "_on_life_changed")
+	_on_life_changed(player_life)  # Atualizar o label inicialmente
 
+func _on_life_changed(life):
+	ui_life.text = "Life: %s" % life
 
 func _physics_process(delta):
 	if climbing == false:
@@ -96,6 +104,7 @@ func take_damage(knockback_force := Vector2.ZERO, duration := 0.25):
 	player_life -= 1
 	hearts_shown -=1
 	emit_signal("life_changed", hearts_shown)
+	ui_life.text = "Score: " + str(player_life)
 	
 	if knockback_force != Vector2.ZERO:
 		knockback_vector = knockback_force

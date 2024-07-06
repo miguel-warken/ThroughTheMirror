@@ -12,6 +12,9 @@ extends Node2D
 
 @onready var b_ladder := $Level2/ladder
 
+@onready var life := $Life/Label
+
+
 
 var player: CharacterBody2D
 var currentScene = null
@@ -25,8 +28,13 @@ func _ready():
 	invert_bg()
 	invert_tiles()
 	player = $Level2/player
+	#life.text = "Score: " + str()
+	if player:
+		player.connect("life_changed", Callable(self, "_on_life_changed"))
+		_on_life_changed(player.player_life)  # Atualizar o label inicialmente
 
-
+func _on_life_changed(player_life):
+	life.text = "Life: %d" % player_life
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
