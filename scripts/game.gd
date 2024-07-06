@@ -4,13 +4,13 @@ extends Node2D
 @onready var black: Color = Color(0,0,0)
 @onready var white: Color = Color(1,1,1)
 
-@onready var w_tilemap: TileMap = $Level1/WhiteTileMap
-@onready var b_tilemap: TileMap = $Level1/BlackTileMap
+@onready var w_tilemap: TileMap = $Level2/WhiteTileMap
+@onready var b_tilemap: TileMap = $Level2/BlackTileMap
 
-@onready var b_spikes: TileMap = $Level1/b_spikes
-@onready var w_spikes: TileMap = $Level1/w_spikes
+@onready var b_spikes: TileMap = $Level2/b_spikes
+@onready var w_spikes: TileMap = $Level2/w_spikes
 
-@onready var b_ladder := $Level1/b_ladders
+@onready var b_ladder := $Leve2/b_ladders
 
 
 var player: CharacterBody2D
@@ -24,7 +24,7 @@ func _ready():
 	bg.color = Color(0,0,0)
 	invert_bg()
 	invert_tiles()
-	player = $Level1/player
+	player = $Level2/player
 
 
 
@@ -48,7 +48,7 @@ func invert_bg() -> void:
 		w_tilemap.tile_set.set_physics_layer_collision_layer(0,3)
 		b_spikes.tile_set.set_physics_layer_collision_layer(0,0)
 		w_spikes.tile_set.set_physics_layer_collision_layer(0,7)
-		b_ladder.set_collision_mask_value(1, false)
+		#b_ladder.set_collision_mask_value(1, false)
 		
 	else:
 		bg.color = black 
@@ -56,7 +56,7 @@ func invert_bg() -> void:
 		w_tilemap.tile_set.set_physics_layer_collision_layer(0,0)
 		b_spikes.tile_set.set_physics_layer_collision_layer(0,6)
 		w_spikes.tile_set.set_physics_layer_collision_layer(0,0)
-		b_ladder.set_collision_mask_value(1, true)
+		#b_ladder.set_collision_mask_value(1, true)
 
 
 func invert_tiles() -> void:
@@ -80,7 +80,7 @@ func _on_level_end_body_entered(body):
 		call_deferred("goto_scene", "res://scenes/game_over.tscn")
 
 func goto_scene(path: String):
-	$Level1.queue_free()
+	$Level2.queue_free()
 	var res := ResourceLoader.load(path)
 	currentScene = res.instantiate()	
 	add_child(currentScene)
