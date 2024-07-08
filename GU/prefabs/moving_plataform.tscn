@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bn61gawg2yugr"]
+[gd_scene load_steps=5 format=3 uid="uid://bn61gawg2yugr"]
 
-[ext_resource type="Texture2D" uid="uid://cr8nga502n0ur" path="res://Seasonal Tilesets/Seasonal Tilesets/5 - Misc. universal tiles/Blocks (16 x 16).png" id="1_83xds"]
-[ext_resource type="Script" path="res://scripts/moving_plataform.gd" id="1_fklo8"]
+[ext_resource type="Script" path="res://GU/scripts/moving_plataform.gd" id="1_fklo8"]
+[ext_resource type="Texture2D" uid="uid://bq8nuu270li5f" path="res://tiles/tilemaps/tilemap_bblack.png" id="2_w44j4"]
+[ext_resource type="Texture2D" uid="uid://cpqgws7uwyfw3" path="res://tiles/tilemaps/tilemap_bwhite.png" id="3_1ko8b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nnrjc"]
-size = Vector2(32, 16)
+size = Vector2(50, 12)
 
 [node name="moving_plataform" type="Node2D"]
 script = ExtResource("1_fklo8")
@@ -13,10 +14,22 @@ script = ExtResource("1_fklo8")
 collision_layer = 2
 
 [node name="sprite_plataform" type="Sprite2D" parent="plataform"]
-texture = ExtResource("1_83xds")
+texture = ExtResource("2_w44j4")
 region_enabled = true
-region_rect = Rect2(96, 64, 32, 16)
+region_rect = Rect2(68, 102, 50, 12)
 
 [node name="collision" type="CollisionShape2D" parent="plataform"]
+shape = SubResource("RectangleShape2D_nnrjc")
+one_way_collision = true
+
+[node name="plataform2" type="AnimatableBody2D" parent="."]
+collision_layer = 2
+
+[node name="sprite_plataform" type="Sprite2D" parent="plataform2"]
+texture = ExtResource("3_1ko8b")
+region_enabled = true
+region_rect = Rect2(68, 102, 50, 12)
+
+[node name="collision" type="CollisionShape2D" parent="plataform2"]
 shape = SubResource("RectangleShape2D_nnrjc")
 one_way_collision = true

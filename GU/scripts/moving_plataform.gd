@@ -3,8 +3,9 @@ extends Node2D
 const WAIT_DURATION := 1.0
 
 @onready var plataform := $plataform as AnimatableBody2D
-@export var move_speed := 3.0
-@export var distance := 192
+@onready var plataform2 := $plataform2 as AnimatableBody2D
+@export var move_speed := 4.0
+@export var distance := 500
 @export var move_horizontal := true
 
 var follow :=Vector2.ZERO
@@ -17,6 +18,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	plataform.position = plataform.position.lerp(follow, 0.5)
+	plataform2.position = plataform2.position.lerp(follow, 0.5)
 	
 func move_plataform():
 	var move_direction = Vector2.RIGHT * distance if move_horizontal else Vector2.UP * distance
