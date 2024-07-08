@@ -3173,7 +3173,7 @@ texture = ExtResource("5_g3md3")
 position = Vector2(588, -72)
 
 [node name="player" parent="." instance=ExtResource("7_tchax")]
-position = Vector2(-16, -194)
+position = Vector2(-25, -203)
 collision_mask = 230
 
 [node name="moving_plataform" parent="." instance=ExtResource("8_hj8xb")]
