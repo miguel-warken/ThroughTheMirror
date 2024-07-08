@@ -11,6 +11,8 @@ extends Node
 @onready var b_spikes: TileMap = $b_spikes
 @onready var w_spikes: TileMap = $w_spikes
 
+@onready var b_ladder := $b_ladders
+
 #@onready var b_ladder := $Level1/ladder
 
 
@@ -49,6 +51,7 @@ func invert_bg() -> void:
 		w_tilemap.tile_set.set_physics_layer_collision_layer(0,3)
 		b_spikes.tile_set.set_physics_layer_collision_layer(0,0)
 		w_spikes.tile_set.set_physics_layer_collision_layer(0,7)
+		b_ladder.set_collision_mask_value(1, false)
 		#b_ladder.set_collision_mask_value(1, false)
 		
 	else:
@@ -57,6 +60,7 @@ func invert_bg() -> void:
 		w_tilemap.tile_set.set_physics_layer_collision_layer(0,0)
 		b_spikes.tile_set.set_physics_layer_collision_layer(0,6)
 		w_spikes.tile_set.set_physics_layer_collision_layer(0,0)
+		b_ladder.set_collision_mask_value(1, true)	
 		#b_ladder.set_collision_mask_value(1, true)
 		
 

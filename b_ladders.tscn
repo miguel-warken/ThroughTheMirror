@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk625xiqthl8r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipeen"]
+size = Vector2(8, 94)
+
+[node name="b_ladders" type="Area2D"]
+position = Vector2(197, -127)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(19, -18)
+shape = SubResource("RectangleShape2D_ipeen")

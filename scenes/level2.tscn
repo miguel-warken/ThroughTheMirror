@@ -3174,7 +3174,7 @@ position = Vector2(232, -358)
 position = Vector2(105, -357)
 
 [node name="player" parent="." instance=ExtResource("4_46cqw")]
-position = Vector2(6, -594)
+position = Vector2(-38, -19)
 collision_mask = 230
 
 [connection signal="body_entered" from="key" to="key" method="_on_key_body_entered"]
